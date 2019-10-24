@@ -6,7 +6,9 @@ class DishDetail extends Component{
     constructor(props){
         super(props);
     }
-
+     /*
+    * Rendering the dish's image, name and description
+    */
     renderDish(dish){
         if(dish != null){
             return (
@@ -25,6 +27,9 @@ class DishDetail extends Component{
         }
     }
 
+    /*
+    * Rendering the comments
+    */
     renderComments(comments) {
         var commentList = comments.map(comment => {
             return (
@@ -46,7 +51,9 @@ class DishDetail extends Component{
             </div>
         );
     }
-
+    /*
+    * Original render method.
+    */
     render() {
         if (this.props.dish) {
             return (
