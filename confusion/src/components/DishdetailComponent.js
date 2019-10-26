@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class DishDetail extends Component{
 
-    constructor(props){
-        super(props);
-    }
-     /*
+    /*
     * Rendering the dish's image, name and description
     */
     renderDish(dish){
@@ -40,7 +37,7 @@ class DishDetail extends Component{
                     &nbsp;
                     {new Intl.DateTimeFormat('en-US', {
                             year: 'numeric',
-                            month: 'long',
+                            month: 'short',
                             day: '2-digit'
                         }).format(new Date(comment.date))}
                     <br /><br />
