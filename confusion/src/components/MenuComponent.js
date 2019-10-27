@@ -11,7 +11,6 @@ import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
             </Card> 
         );
     }
-
     const Menu = (props) => {
         const menu = props.dishes.map((dish) => {
             return (
