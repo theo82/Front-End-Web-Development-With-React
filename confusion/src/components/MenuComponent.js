@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
             </Card> 
         );
     }
+    
     const Menu = (props) => {
         const menu = props.dishes.map((dish) => {
             return (
