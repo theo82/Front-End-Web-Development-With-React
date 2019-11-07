@@ -18,6 +18,7 @@ import {
 import { Loading } from './LoadingComponent';    
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';    
+import { baseUrl } from '../shared/baseUrl';
 
     // Fuctions that will be used for validation in the comment form
     const required = (val) => val && val.length;
@@ -28,7 +29,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     function RenderDish({dish}) {
         return (
             <Card>
-                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
