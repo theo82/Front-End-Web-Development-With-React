@@ -41,7 +41,7 @@ import { baseUrl } from '../shared/baseUrl';
     /*
     * Rendering the comments
     */
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
         var commentList = comments.map(comment => {
             return (
                 <li key={comment.id} >
@@ -66,7 +66,10 @@ import { baseUrl } from '../shared/baseUrl';
                     {commentList}
                 </ul>
                 {/* Calling CommentForm component */}
-                <CommentForm  dishId={dishId} addComment={addComment}/>
+                <CommentForm  
+                    dishId={dishId} 
+                    postComment={postComment}
+                />
             </div>
         );
     }
@@ -108,7 +111,7 @@ import { baseUrl } from '../shared/baseUrl';
                         </div>
                         <div className="col-12 col-md-5 m-1">
                             <RenderComments comments={props.comments}
-                                addComment = {props.addComment}
+                                postComment = {props.postComment}
                                 dishId = {props.dish.id} 
                             />
                         </div>
@@ -148,7 +151,7 @@ export class CommentForm extends Component {
      */
     handleSubmit(values){
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -160,12 +163,11 @@ export class CommentForm extends Component {
                 </Button>
                 {/* The Modal div */}
                 <div className="row row-content">
-                    <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                         <ModalHeader toggle={this.toggleModal}> Submit comment</ModalHeader>
                         <ModalBody>
                             <div className="col-12 col-md-9">
                                 <LocalForm onSubmit={(values) => this.handleSubmit(values)} >
-                                    {/* The rating row */}
                                     <Row className="form-group">
                                         <Label htmlFor="rating">Rating</Label>
                                         <Col md={10}>
@@ -178,46 +180,23 @@ export class CommentForm extends Component {
                                             </Control.select>
                                         </Col>
                                     </Row>
-                                    {/* The Author row */}
+
                                     <Row className="form-group">
                                         <Label htmlFor="author" md={2}>Your name</Label>
                                         <Col md={10}>
-                                            <Control.text 
-                                                model=".author" 
-                                                id="author" 
-                                                name="author" 
-                                                placeholder="Author" 
-                                                className="form-control" 
-                                                validators={{ 
-                                                    required, 
-                                                    minLength:  
-                                                    minLength(3), 
-                                                    maxLength: maxLength(15)}} />
-                                            <Errors className="text-danger" model=".author" show="touched" messages=
-                                                {{ 
-                                                    required: 'Required', 
-                                                    minLength: ' Must be greater than 3 characters', 
-                                                    maxLength: 'Must be 15 charaters or less'
-                                                }} />
+                                            <Control.text model=".author" id="author" name="author" placeholder="Author" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} />
+                                            <Errors className="text-danger" model=".author" show="touched" messages={{ required: 'Required', minLength: 'Must be greater than 3 characters', maxLength: 'Must be 15 charaters or less' }} />
                                         </Col>
                                     </Row>
-                                    {/* The feedback row  */}
+
                                     <Row className="form-group">
                                         <Label htmlFor="feedback" md={2}>Your feedback</Label>
                                         <Col md={10}>
-                                            <Control.textarea 
-                                                model=".comment" 
-                                                id="comment" name="message" 
-                                                rows="6" 
-                                                className="form-control" 
-                                                validators={{ required }} />
-                                            <Errors 
-                                                className="text-danger" 
-                                                model=".comment" 
-                                                show="touched" messages=
-                                                {{ required: 'Required'}} />
+                                            <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} />
+                                            <Errors className="text-danger" model=".comment" show="touched" messages={{ required: 'Required' }} />
                                         </Col>
                                     </Row>
+
                                     <Button type="submit" value="submit" color="primary">Submit</Button>
                                 </LocalForm>
                             </div>
