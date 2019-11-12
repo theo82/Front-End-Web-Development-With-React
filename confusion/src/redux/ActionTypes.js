@@ -7,3 +7,11 @@ export const COMMENTS_FAILED = 'COMMENTS_FAILED';
 export const PROMOS_LOADING = 'PROMOS_LOADING';
 export const ADD_PROMOS = 'ADD_PROMOS';
 export const PROMOS_FAILED = 'PROMOS_FAILED';
+
+// Add new action types in ActionTypes.js to support 
+// the fetching of the leaders information from the server
+export const ADD_LEADER = 'ADD_LEADER'; 
+export const LEADERS_LOADING = 'LEADERS_LOADING';
+export const LEADERS_FAILED = 'LEADERS_FAILED';
+
+export const ADD_FEEDBACK = 'ADD_FEEDBACK';

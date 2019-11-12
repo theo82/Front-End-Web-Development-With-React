@@ -19,6 +19,8 @@ import { Loading } from './LoadingComponent';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';    
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
     // Fuctions that will be used for validation in the comment form
     const required = (val) => val && val.length;
@@ -28,6 +30,11 @@ import { baseUrl } from '../shared/baseUrl';
 
     function RenderDish({dish}) {
         return (
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
             <Card>
                 <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 <CardBody>
@@ -35,6 +42,7 @@ import { baseUrl } from '../shared/baseUrl';
                     <CardText>{dish.description}</CardText>
                 </CardBody>
             </Card>
+            </FadeTransform>
         );
     }
 
@@ -44,18 +52,14 @@ import { baseUrl } from '../shared/baseUrl';
     function RenderComments({comments, postComment, dishId}) {
         var commentList = comments.map(comment => {
             return (
+                <Fade in>
                 <li key={comment.id} >
                     {comment.comment}
                     <br /><br />
-                    -- {comment.author},
-                    &nbsp;
-                    {new Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: '2-digit'
-                        }).format(new Date(comment.date))}
+                    -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}
                     <br /><br />
                 </li>
+            </Fade>
             );
         });
 
@@ -63,7 +67,9 @@ import { baseUrl } from '../shared/baseUrl';
             <div>
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
+                <Stagger in>
                     {commentList}
+                </Stagger>
                 </ul>
                 {/* Calling CommentForm component */}
                 <CommentForm  
